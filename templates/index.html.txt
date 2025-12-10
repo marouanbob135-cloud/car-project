@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head><title>Car Upload</title></head>
+<body>
+<h2>Upload a car image</h2>
+<form id="uploadForm" enctype="multipart/form-data">
+  <input type="file" name="image" required>
+  <button type="submit">Upload</button>
+</form>
+<div id="result"></div>
+
+<script>
+document.getElementById('uploadForm').onsubmit = async function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  const res = await fetch('/upload',{method:'POST', body: formData});
+  const data = await res.json();
+  let html = '';
+  if(data.status==='found'){
+    html = `<p>Found: ${data.car.name}</p>
+            <img src="${data.car.image}" width=300>`;
+  } else {
+    html = `<p>Unknown car uploaded! Saved for admin review.</p>
+            <img src="${data.image}" width=300>`;
+  }
+  document.getElementById('result').innerHTML = html;
+}
+</script>
+</body>
+</html>

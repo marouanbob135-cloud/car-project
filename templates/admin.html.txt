@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin Dashboard</title></head>
+<body>
+<h2>Unknown cars</h2>
+{% for u in unknowns %}
+<div style="border:1px solid #ccc;padding:10px;margin:10px;">
+  <p>{{ u.guess }}</p>
+  <img src="{{ u.image }}" width=200>
+</div>
+{% endfor %}
+
+<h2>Add a new known car</h2>
+<form action="/admin/add" method="post" enctype="multipart/form-data">
+  <input type="text" name="name" placeholder="Car Name" required>
+  <input type="file" name="image" required>
+  <button type="submit">Add Car</button>
+</form>
+</body>
+</html>
